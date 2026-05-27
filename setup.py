@@ -12,6 +12,11 @@ where json_args contains:
     torch_flavor — Flavor of torch to use (cuda, rocm - defaults to cuda)
     gpu_sm       — GPU compute capability as integer (e.g. 61 for Pascal, 86 for Ampere)
     cuda_version — CUDA major/minor encoded as integer (e.g. 124, 128)
+    python_exe   — path to Modly's embedded Python (used to create the venv)
+    ext_dir      — absolute path to this extension directory
+    torch_flavor — Flavor of torch to use (cuda, rocm - defaults to cuda)
+    gpu_sm       — GPU compute capability as integer (e.g. 61 for Pascal, 86 for Ampere)
+    cuda_version — CUDA major/minor encoded as integer (e.g. 124, 128)
 
 Example (manual test):
     python setup.py '{"python_exe":"C:/…/python.exe","ext_dir":"C:/…/hunyuan3d-2-mini","torch_flavor":"cuda","gpu_sm":86,"cuda_version":128}'
@@ -139,6 +144,7 @@ def setup(
 
     # ------------------------------------------------------------------ #
     # PyTorch — choose version based on GPU flavor / architecture
+    # PyTorch — choose version based on GPU flavor / architecture
     # ------------------------------------------------------------------ #
     if is_mac:
         # macOS: standard PyPI wheel includes MPS backend (Apple Silicon) or CPU (Intel)
@@ -175,10 +181,14 @@ def setup(
         print(f"[setup] GPU SM {gpu_sm} -> PyTorch 2.6 + CUDA 12.4")
         print("[setup] Installing PyTorch …")
         pip(venv, "install", *torch_pkgs, "--index-url", torch_index)
+        print("[setup] Installing PyTorch …")
+        pip(venv, "install", *torch_pkgs, "--index-url", torch_index)
     else:
         torch_index = "https://download.pytorch.org/whl/cu118"
         torch_pkgs  = ["torch==2.5.1", "torchvision==0.20.1"]
         print(f"[setup] GPU SM {gpu_sm} (legacy) -> PyTorch 2.5 + CUDA 11.8")
+        print("[setup] Installing PyTorch …")
+        pip(venv, "install", *torch_pkgs, "--index-url", torch_index)
         print("[setup] Installing PyTorch …")
         pip(venv, "install", *torch_pkgs, "--index-url", torch_index)
 
@@ -232,6 +242,11 @@ if __name__ == "__main__":
             gpu_sm       = int(sys.argv[3]),
             cuda_version = int(sys.argv[4]) if len(sys.argv) >= 5 else 0,
             torch_flavor = sys.argv[5] if len(sys.argv) >= 6 else "cuda",
+            python_exe   = sys.argv[1],
+            ext_dir      = Path(sys.argv[2]),
+            gpu_sm       = int(sys.argv[3]),
+            cuda_version = int(sys.argv[4]) if len(sys.argv) >= 5 else 0,
+            torch_flavor = sys.argv[5] if len(sys.argv) >= 6 else "cuda",
         )
     elif len(sys.argv) == 2:
         args = json.loads(sys.argv[1])
@@ -245,6 +260,8 @@ if __name__ == "__main__":
             platform_name = args.get("platform", ""),
         )
     else:
+        print("Usage: python setup.py <python_exe> <ext_dir> <gpu_sm> [cuda_version] [torch_flavor]")
+        print('   or: python setup.py \'{"python_exe":"...","ext_dir":"...","gpu_sm":86,"cuda_version":128}\'')
         print("Usage: python setup.py <python_exe> <ext_dir> <gpu_sm> [cuda_version] [torch_flavor]")
         print('   or: python setup.py \'{"python_exe":"...","ext_dir":"...","gpu_sm":86,"cuda_version":128}\'')
         sys.exit(1)
