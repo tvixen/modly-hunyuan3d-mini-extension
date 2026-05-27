@@ -50,8 +50,15 @@ class Hunyuan3DMiniGenerator(BaseGenerator):
         import torch
         from hy3dgen.shapegen import Hunyuan3DDiTFlowMatchingPipeline
 
-        device = "cuda" if torch.cuda.is_available() else "cpu"
-        dtype  = torch.float16 if device == "cuda" else torch.float32
+        if sys.platform == "darwin":
+            if torch.backends.mps.is_available():
+                device = "mps"
+            else:
+                device = "cpu"
+            dtype = torch.float32  # MPS has limited fp16 op coverage
+        else:
+            device = "cuda" if torch.cuda.is_available() else "cpu"
+            dtype  = torch.float16 if device == "cuda" else torch.float32
 
         subfolder = self.download_check if self.download_check else _SUBFOLDER
         print(f"[Hunyuan3DMiniGenerator] Loading pipeline from {self.model_dir} (subfolder={subfolder})…")
@@ -71,6 +78,8 @@ class Hunyuan3DMiniGenerator(BaseGenerator):
             import torch
             if torch.cuda.is_available():
                 torch.cuda.empty_cache()
+            elif torch.backends.mps.is_available():
+                torch.mps.empty_cache()
         except ImportError:
             pass
 
@@ -135,9 +144,12 @@ class Hunyuan3DMiniGenerator(BaseGenerator):
             self._model = None
             if torch.cuda.is_available():
                 torch.cuda.empty_cache()
+            elif torch.backends.mps.is_available():
+                torch.mps.empty_cache()
 
             self._check_cancelled(cancel_event)
             mesh = self._run_texture(mesh, image, progress_cb)
+            self.load()  # restore shape model so next generation doesn't crash
         else:
             if vert_count > 0 and hasattr(mesh, "vertices") and len(mesh.vertices) > vert_count:
                 self._report(progress_cb, 85, "Optimizing mesh…")
@@ -200,6 +212,8 @@ class Hunyuan3DMiniGenerator(BaseGenerator):
             del paint_pipeline
             if torch.cuda.is_available():
                 torch.cuda.empty_cache()
+            elif torch.backends.mps.is_available():
+                torch.mps.empty_cache()
 
         return result[0] if isinstance(result, (list, tuple)) else result
 
