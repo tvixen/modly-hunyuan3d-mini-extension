@@ -1,5 +1,5 @@
 """
-Hunyuan3D 2 Mini — extension setup script.
+Hunyuan3D 2.1 — extension setup script.
 
 Creates an isolated venv and installs all required dependencies.
 Called by Modly at extension install time with:
@@ -16,7 +16,7 @@ where json_args contains:
     platform     — Electron's process.platform string ("win32", "darwin", "linux")
 
 Example (manual test):
-    python setup.py '{"python_exe":"C:/…/python.exe","ext_dir":"C:/…/hunyuan3d-2-mini","torch_flavor":"cuda","gpu_sm":86,"cuda_version":128}'
+    python setup.py '{"python_exe":"C:/…/python.exe","ext_dir":"C:/…/hunyuan3d-2.1","torch_flavor":"cuda","gpu_sm":86,"cuda_version":128}'
 """
 import json
 import platform
