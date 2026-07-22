@@ -1,4 +1,4 @@
-# modly-hunyuan3d-mini-extension
+# modly-hunyuan3d-2.1-extension
 
 Modly extension for **Hunyuan3D 2.1**, Tencent's lightweight image-to-3D pipeline.
 
