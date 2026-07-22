@@ -1,26 +1,23 @@
 {
-  "id": "hunyuan3d-mini",
-  "name": "Hunyuan3D 2 Mini",
+  "id": "hunyuan3d-2.1",
+  "name": "Hunyuan3D 2.1 ",
   "type": "model",
-  "source": "https://github.com/lightningpixel/modly-hunyuan3d-mini-extension",
+  "source": "https://github.com/tvixen/Hunyuan3D-2.1",
   "description": "Lightweight Hunyuan3D variant with 0.6B parameters. Fast generation with optional PBR texture support.",
-  "version": "1.0.1",
-  "author": "Lightning Pixel",
-  "generator_class": "Hunyuan3DMiniGenerator",
-  "tags": ["image-to-3d", "texture", "low-vram"],
+  "version": "1.0.2",
+  "author": "Tvixen",
+  "generator_class": "Hunyuan3D2.1Generator",
+  "tags": ["image-to-3d", "texture", "middel-vram"],
   "nodes": [
     {
       "id": "generate",
       "name": "Generate Mesh",
       "input": "image",
       "output": "mesh",
-      "hf_repo": "tencent/Hunyuan3D-2mini",
-      "download_check": "hunyuan3d-dit-v2-mini",
+      "hf_repo": "tencent/Hunyuan3D-2.1",
+      "download_check": "hunyuan3d-dit-v2.1",
       "hf_skip_prefixes": [
-        "hunyuan3d-dit-v2-mini-turbo/",
-        "hunyuan3d-dit-v2-mini-fast/",
-        "hunyuan3d-vae-v2-mini-turbo/",
-        "hunyuan3d-vae-v2-mini-withencoder/"
+        "hunyuan3d-dit-v2.1/"
       ],
       "params_schema": [
         {

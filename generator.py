@@ -17,17 +17,17 @@ from PIL import Image
 
 from services.generators.base import BaseGenerator, smooth_progress, GenerationCancelled
 
-_HF_REPO_ID       = "tencent/Hunyuan3D-2mini"
-_SUBFOLDER        = "hunyuan3d-dit-v2-mini"
-_GITHUB_ZIP       = "https://github.com/Tencent/Hunyuan3D-2/archive/refs/heads/main.zip"
-_PAINT_HF_REPO    = "tencent/Hunyuan3D-2"
-_PAINT_SUBFOLDER  = "hunyuan3d-paint-v2-0-turbo"
+_HF_REPO_ID       = "tencent/Hunyuan3D-2.1"  
+_SUBFOLDER        = "hunyuan3d-dit-v2.1"
+_GITHUB_ZIP       = "https://github.com/Tencent/Hunyuan3D-2.1/archive/refs/heads/main.zip"  
+_PAINT_HF_REPO    = "tencent/Hunyuan3D-2.1"
+_PAINT_SUBFOLDER  = "hunyuan3d-paint-v2.1"
 
 
 class Hunyuan3DMiniGenerator(BaseGenerator):
-    MODEL_ID     = "hunyuan3d-mini"
-    DISPLAY_NAME = "Hunyuan3D 2 Mini"
-    VRAM_GB      = 6
+    MODEL_ID     = "hunyuan3d-2.1"
+    DISPLAY_NAME = "Hunyuan3D 2.1"
+    VRAM_GB      = 10
 
     # ------------------------------------------------------------------ #
     # Lifecycle
