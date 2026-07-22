@@ -1,11 +1,11 @@
 # modly-hunyuan3d-mini-extension
 
-Modly extension for **Hunyuan3D 2 Mini**, Tencent's lightweight image-to-3D pipeline.
+Modly extension for **Hunyuan3D 2.1**, Tencent's lightweight image-to-3D pipeline.
 
 ## What this extension does
 
 - installs an isolated Python environment for the extension
-- loads the Hunyuan3D 2 Mini shape pipeline inside Modly
+- loads the Hunyuan3D 2.1 shape pipeline inside Modly
 - optionally uses the texture pipeline when the required native extensions are available
 
 ## Installation flow
